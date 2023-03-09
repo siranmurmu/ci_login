@@ -1,0 +1,93 @@
+//connect to mysql database
+// $dsn = "mysql:host=localhost;port=3306;dbname=myapp;user=root;password=adminadmin;charset=utf8mb4";
+
+// $pdo = new PDO($dsn);
+
+// $statement = $pdo->prepare("select * from posts");
+// $statement->execute();
+
+// $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+foreach($posts as $post){
+    echo "<li>".$post['title']."</li>";
+}
+
+===================================
+
+class Database{
+    public function query(){
+        $dsn = "mysql:host=localhost;port=3306;dbname=myapp;user=root;password=adminadmin;charset=utf8mb4";
+
+        $pdo = new PDO($dsn);
+
+        $statement = $pdo->prepare("select * from posts");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+$db = new Database();
+$posts = $db->query();
+
+=====================================
+
+class Database{
+
+    public $connection;
+    public function __construct()
+    {
+        $dsn = "mysql:host=localhost;port=3306;dbname=myapp;user=root;password=adminadmin;charset=utf8mb4";
+
+        $this->connection = new PDO($dsn);
+    }
+
+    public function query($query){
+        
+
+        $statement = $this->connection->prepare($query);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+$db = new Database();
+$posts = $db->query("select * from posts");
+
+dd($posts);
+
+======================================
+
+class Database{
+
+    public $connection;
+    public function __construct()
+    {
+        $dsn = "mysql:host=localhost;port=3306;dbname=myapp;user=root;password=adminadmin;charset=utf8mb4";
+
+        $this->connection = new PDO($dsn);
+    }
+
+    public function query($query){
+        
+
+        $statement = $this->connection->prepare($query);
+        $statement->execute();
+
+        return $statement;
+    }
+}
+
+$db = new Database();
+$posts = $db->query("select * from posts")->fetchAll(PDO::FETCH_ASSOC);
+
+dd($posts);
+
+=======================
+
+class paste in Database.php
+
+
+
+
